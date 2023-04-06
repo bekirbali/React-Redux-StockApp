@@ -4,6 +4,7 @@ import {
   fetchFail,
   fetchStart,
   loginSuccess,
+  logoutSuccess,
   registerSuccess,
 } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -44,8 +45,16 @@ const useAuthCall = () => {
       console.log(error);
     }
   };
-  const logout = async (userInfo) => {};
-  return { login, register };
+  const logout = async (userInfo) => {
+    try {
+      const { data } = axios.post(`${BASE_URL}account/auth/logout/`);
+      dispatch(logoutSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+      console.log(error);
+    }
+  };
+  return { login, register, logout };
 };
 
 export default useAuthCall;
