@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 
 function Dashboard() {
-  const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.authReducer);
 
   return (
     <Box sx={{ display: "flex" }}>

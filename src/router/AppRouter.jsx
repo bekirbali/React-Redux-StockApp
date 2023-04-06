@@ -9,8 +9,8 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="stock" element={<PrivateRouter />}>
+        <Route path="/register" element={<Register />} />
+        <Route path="/stock" element={<PrivateRouter />}>
           <Route path="" element={<Dashboard />} />
         </Route>
         <Route path="dashboard" element={<Dashboard />} />
