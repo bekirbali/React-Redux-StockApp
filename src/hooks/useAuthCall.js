@@ -49,6 +49,8 @@ const useAuthCall = () => {
     try {
       const { data } = axios.post(`${BASE_URL}account/auth/logout/`);
       dispatch(logoutSuccess(data));
+      navigate("/");
+      console.log("logged out");
     } catch (error) {
       dispatch(fetchFail());
       console.log(error);
