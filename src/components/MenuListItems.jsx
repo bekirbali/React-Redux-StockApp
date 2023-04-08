@@ -13,7 +13,6 @@ import StarsIcon from "@mui/icons-material/Stars";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { useNavigate } from "react-router-dom";
-import { hover } from "@testing-library/user-event/dist/hover";
 
 const icons = [
   {
