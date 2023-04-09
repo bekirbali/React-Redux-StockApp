@@ -2,9 +2,10 @@ import "./App.scss";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey, blueGrey } from "@mui/material/colors";
 import { Provider } from "react-redux";
-import store from "./app/store";
+import store, { persistor } from "./app/store";
 import { ToastContainer } from "react-toastify";
 import MainRouter from "./router/AppRouter";
+import { PersistGate } from "redux-persist/integration/react";
 
 const App = () => {
   const theme = createTheme({
@@ -21,7 +22,9 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <MainRouter />
+          <PersistGate loading={null} persistor={persistor}>
+            <MainRouter />
+          </PersistGate>
         </Provider>
         <ToastContainer />
       </ThemeProvider>
