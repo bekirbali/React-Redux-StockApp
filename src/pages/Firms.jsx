@@ -1,9 +1,12 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 // import axios from "axios";
 import React, { useEffect } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { fetchFail, fetchStart, getSuccess } from "../features/stockSlice";
 import useStockCall from "../hooks/useStockCall";
+import { useSelector } from "react-redux";
+import FirmCard from "../components/FirmCard";
+import { flex } from "../styles/globalStyles";
 
 const Firms = () => {
   // const { token } = useSelector((state) => state.authReducer);
@@ -25,6 +28,7 @@ const Firms = () => {
   // };
 
   const { getStockData } = useStockCall();
+  const { firms } = useSelector((state) => state.stockReducer);
 
   useEffect(() => {
     // getFirms();
@@ -37,6 +41,15 @@ const Firms = () => {
         Firms
       </Typography>
       <Button variant="contained">New Firm</Button>
+      <Grid container sx={(flex, { gap: 2 })}>
+        {firms?.map((firm) => {
+          return (
+            <Grid item key={firm.id}>
+              <FirmCard firm={firm} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </>
   );
 };
