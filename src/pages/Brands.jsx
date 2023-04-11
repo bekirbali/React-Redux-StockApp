@@ -2,7 +2,6 @@ import { Button, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
-import FirmCard from "../components/FirmCard";
 import { flex } from "../styles/globalStyles";
 import BrandCard from "../components/BrandCard";
 

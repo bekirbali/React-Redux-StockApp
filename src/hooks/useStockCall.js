@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchFail, fetchStart, getSuccess } from "../features/stockSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/Toastify";
-import axios from "axios";
 import useAxios from "./useAxios";
 
 const useStockCall = () => {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.authReducer);
   const { instance } = useAxios();
   const getStockData = async (url) => {
     // const BASE_URL = "https://12216.fullstack.clarusway.com/";
@@ -20,6 +18,24 @@ const useStockCall = () => {
       console.log(data);
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify("Getting data failed");
+      console.log(error);
+    }
+  };
+
+  const postStockData = async (url, info) => {
+    // const BASE_URL = "https://12216.fullstack.clarusway.com/";
+    dispatch(fetchStart());
+    try {
+      // await axios.delete(`${BASE_URL}stock/${url}/${id}/`, {
+      //   headers: { Authorization: `Token ${token}` },
+      // });
+      await instance.post(`stock/${url}/`, info);
+      toastSuccessNotify(`${url.slice(0, url.length - 1)} posted successfully`);
+      getStockData(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Posting data failed");
       console.log(error);
     }
   };
@@ -38,11 +54,12 @@ const useStockCall = () => {
       getStockData(url);
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify("Deleting data failed");
       console.log(error);
     }
   };
 
-  return { getStockData, deleteStockData };
+  return { getStockData, postStockData, deleteStockData };
 };
 
 export default useStockCall;

@@ -1,12 +1,13 @@
 import { Button, Grid, Typography } from "@mui/material";
 // import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { fetchFail, fetchStart, getSuccess } from "../features/stockSlice";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
 import FirmCard from "../components/FirmCard";
 import { flex } from "../styles/globalStyles";
+import FirmModal from "../components/modals/FirmModal";
 
 const Firms = () => {
   // const { token } = useSelector((state) => state.authReducer);
@@ -29,6 +30,15 @@ const Firms = () => {
 
   const { getStockData } = useStockCall();
   const { firms } = useSelector((state) => state.stockReducer);
+  const [open, setOpen] = useState(false);
+  const [info, setInfo] = React.useState({
+    name: "",
+    phone: "",
+    address: "",
+    image: "",
+  });
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     // getFirms();
@@ -40,7 +50,16 @@ const Firms = () => {
       <Typography variant="h4" color="error" mb={3}>
         Firms
       </Typography>
-      <Button variant="contained">New Firm</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        New Firm
+      </Button>
+      <FirmModal
+        open={open}
+        handleClose={handleClose}
+        info={info}
+        setInfo={setInfo}
+      />
+
       <Grid container sx={(flex, { gap: 2 })}>
         {firms?.map((firm) => {
           return (
