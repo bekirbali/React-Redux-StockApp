@@ -31,7 +31,7 @@ const Firms = () => {
   const { getStockData } = useStockCall();
   const { firms } = useSelector((state) => state.stockReducer);
   const [open, setOpen] = useState(false);
-  const [info, setInfo] = React.useState({
+  const [info, setInfo] = useState({
     name: "",
     phone: "",
     address: "",
