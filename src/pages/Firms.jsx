@@ -38,7 +38,17 @@ const Firms = () => {
     image: "",
   });
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    return (
+      setOpen(false),
+      setInfo({
+        name: "",
+        phone: "",
+        address: "",
+        image: "",
+      })
+    );
+  };
 
   useEffect(() => {
     // getFirms();
@@ -64,7 +74,7 @@ const Firms = () => {
         {firms?.map((firm) => {
           return (
             <Grid item key={firm.id}>
-              <FirmCard firm={firm} />
+              <FirmCard firm={firm} handleOpen={handleOpen} setInfo={setInfo} />
             </Grid>
           );
         })}

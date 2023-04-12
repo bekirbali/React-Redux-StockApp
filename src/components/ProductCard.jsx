@@ -9,12 +9,11 @@ import { Delete, Edit } from "@mui/icons-material";
 import { btnStyle, flex } from "../styles/globalStyles";
 import useStockCall from "../hooks/useStockCall";
 
-const FirmCard = ({ firm, handleOpen, setInfo }) => {
+const ProductCard = ({ product, handleOpen, setInfo }) => {
   const { deleteStockData } = useStockCall();
 
   const handleEdit = () => {
     handleOpen();
-    setInfo(firm);
   };
 
   return (
@@ -32,25 +31,25 @@ const FirmCard = ({ firm, handleOpen, setInfo }) => {
     >
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {firm?.name}
+          {product?.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {firm?.address}
+          {product?.address}
         </Typography>
       </CardContent>
       <CardMedia
         sx={{ p: 1, objectFit: "contain", height: "130px" }}
-        image={firm?.image}
-        title="firm"
+        image={product?.image}
+        title="product"
       />
       <Typography variant="body2" color="text.secondary">
-        Phone: {firm?.phone}
+        Phone: {product?.phone}
       </Typography>
       <CardActions sx={flex}>
         <Button size="small">
           <Delete
             sx={btnStyle}
-            onClick={() => deleteStockData("firms", firm.id)}
+            onClick={() => deleteStockData("products", product.id)}
           />
         </Button>
         <Button size="small">
@@ -61,4 +60,4 @@ const FirmCard = ({ firm, handleOpen, setInfo }) => {
   );
 };
 
-export default FirmCard;
+export default ProductCard;

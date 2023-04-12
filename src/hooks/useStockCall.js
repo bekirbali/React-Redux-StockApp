@@ -40,6 +40,25 @@ const useStockCall = () => {
     }
   };
 
+  const putStockData = async (url, info) => {
+    // const BASE_URL = "https://12216.fullstack.clarusway.com/";
+    dispatch(fetchStart());
+    try {
+      // await axios.delete(`${BASE_URL}stock/${url}/${id}/`, {
+      //   headers: { Authorization: `Token ${token}` },
+      // });
+      await instance.put(`stock/${url}/${info.id}/`, info);
+      toastSuccessNotify(
+        `${url.slice(0, url.length - 1)} updated successfully`
+      );
+      getStockData(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Updating data failed");
+      console.log(error);
+    }
+  };
+
   const deleteStockData = async (url, id) => {
     // const BASE_URL = "https://12216.fullstack.clarusway.com/";
     dispatch(fetchStart());
@@ -59,7 +78,7 @@ const useStockCall = () => {
     }
   };
 
-  return { getStockData, postStockData, deleteStockData };
+  return { getStockData, postStockData, deleteStockData, putStockData };
 };
 
 export default useStockCall;
