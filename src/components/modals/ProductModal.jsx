@@ -4,22 +4,24 @@ import Modal from "@mui/material/Modal";
 import { modal } from "../../styles/globalStyles";
 import { Button, TextField } from "@mui/material";
 import useStockCall from "../../hooks/useStockCall";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useSelector } from "react-redux";
 
 const ProductModal = ({ handleClose, open, info, setInfo }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
   };
-  const { postStockData, putStockData } = useStockCall();
+  const { postStockData } = useStockCall();
+  const { categories } = useSelector((state) => state.stockReducer);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (info.id) {
-      putStockData("products", info);
-    } else {
-      postStockData("products", info);
-    }
+    postStockData("products", info);
     handleClose();
-    setInfo({ name: "", phone: "", address: "", image: "" });
+    setInfo({ category_id: "", brand_id: "", name: "" });
   };
   return (
     <div>
@@ -39,6 +41,24 @@ const ProductModal = ({ handleClose, open, info, setInfo }) => {
             component="form"
             onSubmit={handleSubmit}
           >
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Categories</InputLabel>
+              <Select
+                labelId="category"
+                id="category"
+                value={info.category_id}
+                label="Categories"
+                onChange={handleChange}
+              >
+                {categories?.map((category) => {
+                  return (
+                    <MenuItem key={category.id} value={10}>
+                      {category.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <TextField
               label="Firm Name"
               name="name"

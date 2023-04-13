@@ -7,29 +7,27 @@ import ProductModal from "../components/modals/ProductModal";
 import ProductCard from "../components/ProductCard";
 
 import Box from "@mui/material/Box";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 import { Delete } from "@mui/icons-material";
 
 const Products = () => {
-  const { getStockData, deleteStockData } = useStockCall();
+  const { deleteStockData, getProCatBrand } = useStockCall();
   const { products } = useSelector((state) => state.stockReducer);
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({
+    category_id: "",
+    brand_id: "",
     name: "",
-    phone: "",
-    address: "",
-    image: "",
   });
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     return (
       setOpen(false),
       setInfo({
+        category_id: "",
+        brand_id: "",
         name: "",
-        phone: "",
-        address: "",
-        image: "",
       })
     );
   };
@@ -100,7 +98,11 @@ const Products = () => {
   ];
 
   useEffect(() => {
-    getStockData("products");
+    // getStockData("products");
+    // getStockData("categories");
+    // getStockData("brands");
+    //! Promise All
+    getProCatBrand();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -123,6 +125,7 @@ const Products = () => {
           autoHeight
           rows={products}
           columns={columns}
+          slots={{ toolbar: GridToolbar }}
           initialState={{
             pagination: {
               paginationModel: {
