@@ -2,17 +2,17 @@ import { Button, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useStockCall from "../hooks/useStockCall";
 import { useSelector } from "react-redux";
-import { flex } from "../styles/globalStyles";
+import { btnStyle, flex } from "../styles/globalStyles";
 import ProductModal from "../components/modals/ProductModal";
 import ProductCard from "../components/ProductCard";
 
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { Delete } from "@mui/icons-material";
 
 const Products = () => {
-  const { getStockData } = useStockCall();
+  const { getStockData, deleteStockData } = useStockCall();
   const { products } = useSelector((state) => state.stockReducer);
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({
@@ -34,47 +34,68 @@ const Products = () => {
     );
   };
 
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ];
-
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
-      field: "firstName",
-      headerName: "First name",
-      width: 150,
-      editable: true,
+      field: "id",
+      headerName: "#",
+      minWidth: 40,
+      maxWidth: 70,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
     },
     {
-      field: "lastName",
-      headerName: "Last name",
-      width: 150,
-      editable: true,
+      field: "category",
+      headerName: "Category",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "brand",
+      headerName: "Brand",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 1,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      headerAlign: "center",
+      align: "center",
       type: "number",
-      width: 110,
-      editable: true,
+      minWidth: 150,
+      flex: 1,
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
+      field: "stock",
+      headerName: "Stock",
+      headerAlign: "center",
+      align: "center",
+      sortable: true,
+      minWidth: 100,
+      flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      minWidth: 50,
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <GridActionsCellItem
+            icon={<Delete />}
+            onClick={() => deleteStockData("products", params.id)}
+            label="Delete"
+            sx={btnStyle}
+          />
+        );
+      },
     },
   ];
 
@@ -97,9 +118,10 @@ const Products = () => {
         setInfo={setInfo}
       />
 
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ width: "100%", marginTop: "1rem" }}>
         <DataGrid
-          rows={rows}
+          autoHeight
+          rows={products}
           columns={columns}
           initialState={{
             pagination: {
@@ -109,7 +131,6 @@ const Products = () => {
             },
           }}
           pageSizeOptions={[5]}
-          checkboxSelection
           disableRowSelectionOnClick
         />
       </Box>

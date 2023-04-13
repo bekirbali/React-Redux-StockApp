@@ -6,7 +6,7 @@ const stockSlice = createSlice({
     purchases: null,
     sales: null,
     brands: null,
-    products: null,
+    products: [],
     categories: null,
     firms: null,
     loading: false,
