@@ -8,11 +8,17 @@ import { amber, deepPurple, pink } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 
 const KpiCards = () => {
-  const { sales } = useSelector((state) => state.stockReducer);
+  const { sales, purchases } = useSelector((state) => state.stockReducer);
 
   const totalSales = sales
     ?.map((item) => Number(item.price_total))
     .reduce((sum, item) => sum + item, 0);
+
+  const totalPurchases = purchases
+    ?.map((item) => Number(item.price_total))
+    .reduce((sum, item) => sum + item, 0);
+
+  const totalProfit = totalSales - totalPurchases;
 
   const data = [
     {
@@ -27,7 +33,7 @@ const KpiCards = () => {
       id: 2,
       icon: <ShoppingCart sx={{ fontSize: "2.5rem" }} />,
       title: "profit",
-      value: "$30000",
+      value: `${totalProfit}`,
       color: pink[600],
       bgColor: pink[100],
     },
@@ -35,7 +41,7 @@ const KpiCards = () => {
       id: 3,
       icon: <PaymentsOutlined sx={{ fontSize: "2.5rem" }} />,
       title: "purchases",
-      value: "$20000",
+      value: `${totalPurchases}`,
       color: amber[600],
       bgColor: amber[100],
     },
