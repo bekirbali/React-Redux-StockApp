@@ -20,7 +20,6 @@ const useStockCall = () => {
       // });
       const { data } = await instance.get(`stock/${url}/`);
       dispatch(getSuccess({ data, url }));
-      console.log(data);
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify("Getting data failed");
