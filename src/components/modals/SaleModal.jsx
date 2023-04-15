@@ -10,21 +10,25 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useSelector } from "react-redux";
 
-const ProductModal = ({ handleClose, open, info, setInfo }) => {
-  const { postStockData } = useStockCall();
-  const { categories, brands } = useSelector((state) => state.stockReducer);
+const SaleModal = ({ handleClose, open, info, setInfo }) => {
+  const { postStockData, putStockData } = useStockCall();
+  const { products, brands } = useSelector((state) => state.stockReducer);
 
   const handleChange = (e) => {
     console.log(e);
     const { name, value } = e.target;
-    setInfo({ ...info, [name]: value });
+    setInfo({ ...info, [name]: Number(value) });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postStockData("products", info);
+    if (info.id) {
+      putStockData("sales", info);
+    } else {
+      postStockData("sales", info);
+    }
     handleClose();
-    setInfo({ category_id: "", brand_id: "", name: "" });
+    setInfo({ product_id: "", brand_id: "", quantity: "", price: "" });
   };
   return (
     <div>
@@ -45,32 +49,13 @@ const ProductModal = ({ handleClose, open, info, setInfo }) => {
             onSubmit={handleSubmit}
           >
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Categories</InputLabel>
-              <Select
-                labelId="category"
-                id="category"
-                name="category_id"
-                value={info?.category_id}
-                label="Categories"
-                onChange={handleChange}
-              >
-                {categories?.map((category) => {
-                  return (
-                    <MenuItem key={category.id} value={category.id}>
-                      {category.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Brands</InputLabel>
+              <InputLabel id="demo-simple-select-label">Brand</InputLabel>
               <Select
                 labelId="brand"
                 id="brand"
                 name="brand_id"
                 value={info?.brand_id}
-                label="Brands"
+                label="Brand"
                 onChange={handleChange}
               >
                 {brands?.map((brand) => {
@@ -82,13 +67,41 @@ const ProductModal = ({ handleClose, open, info, setInfo }) => {
                 })}
               </Select>
             </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Product</InputLabel>
+              <Select
+                labelId="product"
+                id="product"
+                name="product_id"
+                value={info?.product_id}
+                label="Product"
+                onChange={handleChange}
+              >
+                {products?.map((product) => {
+                  return (
+                    <MenuItem key={product.id} value={product.id}>
+                      {product.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <TextField
-              label="Product Name"
-              name="name"
-              id="name"
-              type="text"
+              label="Quantity"
+              name="quantity"
+              id="quantity"
+              type="number"
               variant="outlined"
-              value={info?.name}
+              value={info?.quantity}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Price"
+              name="price"
+              id="price"
+              type="number"
+              variant="outlined"
+              value={info?.price}
               onChange={handleChange}
             />
 
@@ -102,4 +115,4 @@ const ProductModal = ({ handleClose, open, info, setInfo }) => {
   );
 };
 
-export default ProductModal;
+export default SaleModal;

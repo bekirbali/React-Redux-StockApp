@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const stockSlice = createSlice({
   name: "stock",
   initialState: {
-    purchases: null,
-    sales: null,
-    brands: null,
+    purchases: [],
+    sales: [],
+    brands: [],
     products: [],
-    categories: null,
-    firms: null,
+    categories: [],
+    firms: [],
     loading: false,
     error: false,
   },
