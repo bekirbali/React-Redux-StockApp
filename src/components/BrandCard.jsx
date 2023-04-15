@@ -9,8 +9,14 @@ import { Delete, Edit } from "@mui/icons-material";
 import { btnStyle, flex } from "../styles/globalStyles";
 import useStockCall from "../hooks/useStockCall";
 
-const BrandCard = ({ brand }) => {
+const BrandCard = ({ brand, setInfo, handleOpen }) => {
   const { deleteStockData } = useStockCall();
+
+  const handleEdit = () => {
+    handleOpen();
+    setInfo(brand);
+  };
+
   return (
     <Card
       sx={{
@@ -42,7 +48,7 @@ const BrandCard = ({ brand }) => {
           />
         </Button>
         <Button size="small">
-          <Edit sx={btnStyle} />
+          <Edit sx={btnStyle} onClick={handleEdit} />
         </Button>
       </CardActions>
     </Card>

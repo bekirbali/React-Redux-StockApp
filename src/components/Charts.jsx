@@ -2,29 +2,6 @@ import { Grid } from "@mui/material";
 import { Card, Title, LineChart } from "@tremor/react";
 import { useSelector } from "react-redux";
 
-const chartdata = [
-  {
-    date: 1951,
-    sale: 1.74,
-  },
-  {
-    year: 1952,
-    "Population growth rate": 1.93,
-  },
-  {
-    year: 1953,
-    "Population growth rate": 1.9,
-  },
-  {
-    year: 1954,
-    "Population growth rate": 1.98,
-  },
-  {
-    year: 1955,
-    "Population growth rate": 2,
-  },
-];
-
 const dataFormatter = (number) =>
   `${Intl.NumberFormat("us").format(number).toString()}`;
 
