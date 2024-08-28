@@ -13,6 +13,7 @@ const useStockCall = () => {
   const { instance } = useAxios();
   const getStockData = async (url) => {
     // const BASE_URL = "https://12216.fullstack.clarusway.com/";
+    // const BASE_URL = "http://127.0.0.1:8000/";
     dispatch(fetchStart());
     try {
       // const { data } = await axios(`${BASE_URL}stock/${url}/`, {
