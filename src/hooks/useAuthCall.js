@@ -13,7 +13,8 @@ import { toastErrorNotify, toastSuccessNotify } from "../helper/Toastify";
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const BASE_URL = "https://12216.fullstack.clarusway.com/";
+  // const BASE_URL = "https://12216.fullstack.clarusway.com/";
+  const BASE_URL = "http://127.0.0.1:8000/";
   const login = async (userInfo) => {
     dispatch(fetchStart());
     try {
@@ -25,6 +26,7 @@ const useAuthCall = () => {
       navigate("/stock");
       toastSuccessNotify("Logged in successfully");
       console.log(data, "data");
+      console.log("giris basarili ama yönlenmiyor");
       return data;
     } catch (error) {
       dispatch(fetchFail());
