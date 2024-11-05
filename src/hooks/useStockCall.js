@@ -19,7 +19,7 @@ const useStockCall = () => {
       // const { data } = await axios(`${BASE_URL}stock/${url}/`, {
       //   headers: { Authorization: `Token ${token}` },
       // });
-      const { data } = await instance.get(`stock/${url}/`);
+      const { data } = await instance(`stock/${url}/`);
       dispatch(getSuccess({ data, url }));
     } catch (error) {
       dispatch(fetchFail());
