@@ -10,6 +10,7 @@ const Home = () => {
   useEffect(() => {
     getStockData("sales");
     getStockData("purchases");
+    getStockData("products");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
