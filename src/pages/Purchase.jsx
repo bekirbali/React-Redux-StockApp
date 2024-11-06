@@ -115,7 +115,14 @@ const Purchase = () => {
             icon={<Edit />}
             onClick={() => {
               handleOpen();
-              setInfo({ id, product_id, brand_id, firm_id, quantity, price });
+              setInfo({
+                id,
+                product_id,
+                brand_id,
+                firm_id,
+                quantity,
+                price,
+              });
             }}
             label="Edit"
             sx={btnStyle}

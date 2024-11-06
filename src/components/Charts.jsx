@@ -15,7 +15,7 @@ const Charts = () => {
   });
   const purchasesData = purchases?.map((item) => {
     return {
-      date: item.createds,
+      date: item.created,
       purchases: Number(item.price_total),
     };
   });
