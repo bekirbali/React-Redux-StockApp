@@ -25,8 +25,6 @@ const useAuthCall = () => {
       dispatch(loginSuccess(data));
       navigate("/stock");
       toastSuccessNotify("Logged in successfully");
-      console.log(data, "data");
-      console.log("giris basarili ama yönlenmiyor");
       return data;
     } catch (error) {
       dispatch(fetchFail());
